@@ -7,11 +7,13 @@ import { Data, Vacancy } from '../models/vacancies.interface';
   providedIn: 'root',
 })
 export class GetVacanciesService {
+  vacanciesCount: number = 100;
+
   constructor(private httpClient: HttpClient) {}
 
-  getVacancies(count: number): Observable<Vacancy[]> {
+  getVacancies(): Observable<Vacancy[]> {
     return this.httpClient
-      .get<Data>(`https://api.hh.ru/vacancies?per_page=${count}`)
+      .get<Data>(`https://api.hh.ru/vacancies?per_page=${this.vacanciesCount}`)
       .pipe(map((data: Data) => data.items));
   }
 
